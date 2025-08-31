@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - MailGuard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <a href="/" class="back-link">← Back to Home</a>
+                <div class="auth-logo">
+                    <span class="logo-icon">🛡️</span>
+                    <span class="logo-text">MailGuard</span>
+                </div>
+            </div>
+
+            <div id="login-form" class="auth-form">
+                <h1 class="auth-title">Welcome Back</h1>
+                <p class="auth-subtitle">Sign in to your MailGuard account</p>
+                
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" placeholder="Enter your username" />
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" />
+                </div>
+                
+                <button id="loginBtn" class="auth-button">
+                    <span class="btn-text">Sign In</span>
+                    <span class="btn-loading" style="display: none;">⏳</span>
+                </button>
+                
+                <div id="loginError" class="error-message"></div>
+                
+                <div class="auth-footer">
+                    <p>Don't have an account? <a href="/signup.html" class="link">Sign Up</a></p>
+                </div>
+            </div>
+
+            <div id="mfa-form" class="auth-form" style="display: none;">
+                <h1 class="auth-title">Two-Factor Authentication</h1>
+                <p class="auth-subtitle">Enter the 6-digit code sent to your email</p>
+                
+                <div class="form-group">
+                    <label for="mfaCode">Verification Code</label>
+                    <input type="text" id="mfaCode" placeholder="Enter 6-digit code" maxlength="6" />
+                </div>
+                
+                <button id="mfaBtn" class="auth-button">
+                    <span class="btn-text">Verify Code</span>
+                    <span class="btn-loading" style="display: none;">⏳</span>
+                </button>
+                
+                <div id="mfaError" class="error-message"></div>
+                
+                <div class="auth-footer">
+                    <p>Didn't receive the code? <a href="#" class="link" id="resend-otp">Resend</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MailGuard - AI Phishing Email Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">🛡️</span>
+                <span class="logo-text">MailGuard</span>
+            </div>
+            <div class="nav-buttons">
+                <a href="/login.html" class="nav-btn login-btn">Login</a>
+                <a href="/signup.html" class="nav-btn signup-btn">Sign Up</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Protect Your Inbox with 
+                    <span class="highlight">AI-Powered</span> 
+                    Phishing Detection
+                </h1>
+                <p class="hero-subtitle">
+                    Advanced machine learning algorithms analyze emails in real-time to identify 
+                    phishing attempts and protect your sensitive information.
+                </p>
+                <div class="hero-features">
+                    <div class="feature">
+                        <span class="feature-icon">🔒</span>
+                        <span>Secure Authentication</span>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">🤖</span>
+                        <span>AI Analysis</span>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-icon">📊</span>
+                        <span>Confidence Scoring</span>
+                    </div>
+                </div>
+                <div class="hero-buttons">
+                    <button id="start-scan-btn" class="cta-button">
+                        <span class="btn-text">Start Analyzing</span>
+                        <span class="btn-icon">→</span>
+                    </button>
+                    <button id="demo-btn" class="demo-button">
+                        <span class="btn-text">Try Demo</span>
+                        <span class="btn-icon">🎯</span>
+                    </button>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="email-card">
+                    <div class="email-header">
+                        <div class="email-sender">📧 suspicious@fake-bank.com</div>
+                        <div class="email-status danger">⚠️ High Risk</div>
+                    </div>
+                    <div class="email-content">
+                        <div class="email-subject">Your account has been suspended</div>
+                        <div class="email-preview">Click here to verify your account immediately...</div>
+                    </div>
+                    <div class="email-analysis">
+                        <div class="analysis-bar">
+                            <div class="analysis-fill" style="width: 85%; background: linear-gradient(45deg, #ff6b6b, #ee5a52);"></div>
+                        </div>
+                        <div class="analysis-text">85% Phishing Risk</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose MailGuard?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Advanced Security</h3>
+                    <p>Multi-factor authentication and strong password policies ensure your account stays secure.</p>
+                    <div class="feature-stats">
+                        <span class="stat">99.9%</span>
+                        <span class="stat-label">Security Rate</span>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>AI-Powered Detection</h3>
+                    <p>State-of-the-art machine learning models analyze emails for phishing indicators.</p>
+                    <div class="feature-stats">
+                        <span class="stat">95%</span>
+                        <span class="stat-label">Accuracy</span>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Detailed Analysis</h3>
+                    <p>Get confidence scores and detailed breakdowns of suspicious elements found.</p>
+                    <div class="feature-stats">
+                        <span class="stat">10+</span>
+                        <span class="stat-label">Indicators</span>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Real-time Results</h3>
+                    <p>Instant analysis with comprehensive reports on potential threats.</p>
+                    <div class="feature-stats">
+                        <span class="stat">< 2s</span>
+                        <span class="stat-label">Response Time</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

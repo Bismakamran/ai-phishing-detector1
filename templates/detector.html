@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Detector - MailGuard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">🛡️</span>
+                <span class="logo-text">MailGuard</span>
+            </div>
+            <div class="nav-buttons">
+                <span class="user-info" id="userInfo">Loading...</span>
+                <a href="/" class="nav-btn">Home</a>
+                <a href="/api/logout" class="nav-btn logout-btn">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="detector-container">
+        <div class="detector-header">
+            <h1>Email Phishing Detector</h1>
+            <p>Analyze emails for potential phishing attempts using AI-powered detection</p>
+        </div>
+
+        <div class="detector-content">
+            <div class="input-section">
+                <div class="input-card">
+                    <h3>📧 Email Content</h3>
+                    <div class="text-input-section">
+                        <label for="emailInput">Paste your complete email (including headers):</label>
+                        <textarea 
+                            id="emailInput" 
+                            placeholder="Paste your complete email here (including headers)...&#10;&#10;To get full email with headers:&#10;• Gmail: Click 'Show original' in the email menu&#10;• Outlook: Right-click email → 'View source'&#10;• Other clients: Look for 'View source' or 'Show original' option&#10;&#10;Example with headers:&#10;From: security@bank.com&#10;Subject: Your account has been suspended&#10;Date: Mon, 30 Aug 2025 10:00:00 +0000&#10;Message-ID: &lt;123456@bank.com&gt;&#10;&#10;Body: Click here to verify your account immediately..."
+                        ></textarea>
+                        <div class="input-hint">
+                            <strong>💡 Tip:</strong> Include email headers for better analysis. Most email clients have a "Show original" or "View source" option.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-card">
+                    <h3>🔗 Website URL (Optional)</h3>
+                    <div class="url-input-section">
+                        <label for="urlInput">Enter the URL from the email:</label>
+                        <input 
+                            type="url" 
+                            id="urlInput" 
+                            placeholder="e.g. https://example.com/verify-account"
+                        />
+                        <span class="input-hint">This helps identify suspicious URLs</span>
+                    </div>
+                </div>
+
+                <button id="checkBtn" class="analyze-button">
+                    <span class="btn-text">Analyze Email</span>
+                    <span class="btn-loading" style="display: none;">⏳ Analyzing...</span>
+                </button>
+            </div>
+
+            <div class="results-section">
+                <div id="result" class="result-card" style="display: none;">
+                    <div class="result-header">
+                        <h3>Analysis Results</h3>
+                        <div class="result-status" id="resultStatus"></div>
+                    </div>
+                    
+                    <div class="result-content">
+                        <div class="confidence-meter">
+                            <div class="confidence-label">Confidence Level</div>
+                            <div class="confidence-bar">
+                                <div class="confidence-fill" id="confidenceFill"></div>
+                            </div>
+                            <div class="confidence-text" id="confidenceText"></div>
+                        </div>
+                        
+                        <div class="indicators-section">
+                            <h4>Suspicious Indicators Found:</h4>
+                            <div id="indicatorsList" class="indicators-list"></div>
+                        </div>
+                        
+                        <div class="recommendations">
+                            <h4>Recommendations:</h4>
+                            <div id="recommendationsList" class="recommendations-list"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="history-section">
+                    <h3>Recent Analyses</h3>
+                    <div id="analysisHistory" class="history-list">
+                        <div class="history-placeholder">
+                            <p>No recent analyses yet</p>
+                            <p class="small-text">Your analysis history will appear here</p>
+                        </div>
+                    </div>
+                    <div class="scroll-indicator hidden" id="scrollIndicator">
+                        <div class="scroll-dot"></div>
+                        <div class="scroll-dot"></div>
+                        <div class="scroll-dot"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
