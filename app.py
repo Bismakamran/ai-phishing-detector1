@@ -20,6 +20,11 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY', 'your-secret-key-here')
 
+# Simple healthcheck endpoint for platforms
+@app.route('/health')
+def health():
+    return jsonify({"status": "ok"}), 200
+
 # MongoDB configuration
 app.config["MONGO_URI"] = os.getenv('MONGO_URI', 'mongodb://localhost:27017/mailguard')
 mongo = PyMongo(app)

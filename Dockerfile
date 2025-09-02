@@ -38,7 +38,7 @@ EXPOSE 8000
 
 # Health check (uses $PORT provided by platform)
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-    CMD bash -lc 'curl -fsS http://localhost:${PORT:-8000}/ || exit 1'
+    CMD bash -lc 'curl -fsS http://localhost:${PORT:-8000}/health || exit 1'
 
 # Run the application (bind to $PORT if provided)
 CMD ["bash","-lc","exec gunicorn --bind 0.0.0.0:${PORT:-8000} --workers 2 --timeout 120 app:app"]
