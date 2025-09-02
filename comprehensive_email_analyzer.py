@@ -123,62 +123,53 @@ class ComprehensiveEmailAnalyzer:
             }
     
     def _analyze_with_ml_model(self, email_content: str) -> Dict:
-        """Analyze email using trained ML model"""
+        """Analyze email using lightweight header analysis"""
         try:
-            if not header_ml_model.is_trained:
-                return {
-                    "result": "⚠️ ML model not trained - using fallback analysis",
-                    "confidence": 0,
-                    "indicators": ["ML model not available"],
-                    "analysis_type": "ml_model"
-                }
-            
-            # Parse headers for ML model
+            # Parse email headers
             from email import message_from_string
             email_message = message_from_string(email_content)
             headers = dict(email_message.items())
             
-            # Make prediction
-            prediction_result = header_ml_model.predict(headers)
+            # Use lightweight header analysis
+            header_result = header_ml_model.analyze_headers_lightweight(headers)
             
-            if "error" in prediction_result:
+            if 'result' in header_result and '❌' in header_result['result']:
                 return {
-                    "result": f"❌ Error: ML model prediction failed - {prediction_result['error']}",
+                    "result": f"❌ Header analysis error: {header_result['result']}",
                     "confidence": 0,
                     "indicators": [],
                     "analysis_type": "ml_model"
                 }
             
-            # Extract prediction and probability
-            prediction = prediction_result["prediction"]
-            probabilities = prediction_result["probability"]
+            # Convert header analysis to result format
+            risk_score = header_result.get('risk_score', 0)
+            risk_level = header_result.get('risk_level', 'LOW')
+            indicators = header_result.get('indicators', [])
             
-            # Calculate confidence based on highest probability
-            max_prob = max(probabilities.values())
-            confidence_percentage = int(max_prob * 100)
+            # Calculate confidence based on risk score
+            confidence_percentage = max(0, 100 - risk_score)
             
-            # Determine result
-            if prediction.lower() in ['phishing', 'malicious'] or confidence_percentage > 70:
-                result_text = f"⚠️ HIGH RISK - ML model detected phishing ({confidence_percentage}% confidence)"
-            elif confidence_percentage > 40:
-                result_text = f"⚠️ MEDIUM RISK - ML model detected suspicious patterns ({confidence_percentage}% confidence)"
+            if risk_level == 'HIGH':
+                result_text = f"⚠️ HIGH RISK - Header analysis detected suspicious patterns ({confidence_percentage}% confidence)"
+            elif risk_level == 'MEDIUM':
+                result_text = f"⚠️ MEDIUM RISK - Header analysis detected some concerns ({confidence_percentage}% confidence)"
             else:
-                result_text = f"✅ LOW RISK - ML model indicates legitimate email ({confidence_percentage}% confidence)"
+                result_text = f"✅ LOW RISK - Header analysis appears safe ({confidence_percentage}% confidence)"
             
             return {
                 "result": result_text,
                 "confidence": confidence_percentage,
-                "indicators": [f"ML prediction: {prediction}"],
-                "analysis_type": "ml_model"
+                "indicators": indicators,
+                "analysis_type": "header_analysis"
             }
             
         except Exception as e:
-            logger.error(f"Error in ML model analysis: {e}")
+            logger.error(f"Error in header analysis: {e}")
             return {
-                "result": f"❌ Error: ML model analysis failed - {str(e)}",
+                "result": f"❌ Error: Header analysis failed - {str(e)}",
                 "confidence": 0,
                 "indicators": [],
-                "analysis_type": "ml_model"
+                "analysis_type": "header_analysis"
             }
     
     def _combine_analysis_results(self, header_result: Dict, content_result: Dict, ml_result: Dict) -> Dict:
