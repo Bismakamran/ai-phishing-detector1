@@ -14,7 +14,7 @@ def check_environment():
     # Check if .env file exists
     env_file = Path('.env')
     if not env_file.exists():
-        print("⚠️  .env file not found!")
+        print(" .env file not found!")
         print("📝 Creating .env file from template...")
         
         try:
