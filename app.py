@@ -661,4 +661,5 @@ def api_logout():
 comprehensive_analyzer = ComprehensiveEmailAnalyzer(HUGGINGFACE_API_KEY, HUGGINGFACE_API_URL)
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(debug=True, host='0.0.0.0', port=port)
